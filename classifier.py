@@ -7,7 +7,16 @@ from sklearn.model_selection import train_test_split
 
 
 class Classifier:
+    """Simple binary classifier that takes multiple sentences and tries to
+       predict the label of a new given sentence"""
     def __init__(self, data, labels, dictionary_size):
+        """Creates and trains a new nn
+
+        Arguments:
+            data: list<String>, sentences
+            labels: list<String>, labels of the sentences
+            dictionary_size: int, size of the dictionary"""
+
         # same length for every datapoint
         data = tf.keras.preprocessing.sequence.pad_sequences(
             data, maxlen=256, padding='post')
@@ -45,6 +54,13 @@ class Classifier:
         print(results)
 
     def predict(self, datapoint):
+        """Predicts the label of a sentence
+
+        Arguments:
+            datapoint: String, a sentence
+
+        Returns:
+            prediction"""
         datapoint = (tf.keras.preprocessing.sequence.pad_sequences(
             [datapoint], maxlen=256, padding='post'))
         return self.model.predict(datapoint)
